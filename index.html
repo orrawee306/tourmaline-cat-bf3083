@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAMTAN FILM GLAMOROUS FANCON — Fan Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --curtain-red:#5c1220;
+    --curtain-red-2:#3a0a13;
+    --curtain-red-bright:#8a1f31;
+    --ink:#130d0f;
+    --ink-2:#1c1416;
+    --ink-3:#241a1d;
+    --gold:#c9a24a;
+    --gold-bright:#ecce85;
+    --gold-dim:#8a6f34;
+    --cream:#f3e9d6;
+    --cream-dim:#cbb999;
+    --seat-sold:#3a3134;
+    --seat-sold-2:#2a2426;
+    --seat-mine:#ecce85;
+    --ok:#57b586;
+    --warn:#d98a3d;
+    --danger:#c9524a;
+    --radius:6px;
+    --shadow-deep: 0 20px 50px rgba(0,0,0,.5);
+
+    /* official 9-tier pricing colours (from event seat chart) */
+    --p6900:#3fc9c6;
+    --p5900:#f0d94a;
+    --p4500:#ef94b8;
+    --p4000:#9a63c4;
+    --p3500:#3fae63;
+    --p3000:#8a6142;
+    --p2500:#e2685c;
+    --p2000:#ef972f;
+    --p1500:#9aa1a8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(140,30,45,.35), transparent 55%),
+      var(--ink);
+    color:var(--cream);
+    font-family:'Karla',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Playfair Display',serif;
+    margin:0 0 .4em 0;
+    color:var(--gold-bright);
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  a{color:var(--gold-bright);}
+  ::selection{ background:var(--gold); color:var(--ink);}
+
+  /* ---------- Marquee bulb border ---------- */
+  .bulb-row{
+    display:flex;
+    justify-content:space-evenly;
+    padding:6px 10px;
+    background:linear-gradient(180deg, var(--curtain-red-2), var(--ink));
+  }
+  .bulb{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--gold-bright);
+    box-shadow:0 0 8px 2px rgba(236,206,133,.85);
+    animation:twinkle 2.4s infinite ease-in-out;
+  }
+  .bulb:nth-child(odd){animation-delay:1.2s;}
+  @keyframes twinkle{
+    0%,100%{opacity:1;}
+    50%{opacity:.25; box-shadow:0 0 2px 0 rgba(236,206,133,.3);}
+  }
+  @media (prefers-reduced-motion: reduce){ .bulb{animation:none;} }
+
+  /* ---------- Header / Hero ---------- */
+  header.hero{
+    position:relative;
+    padding:56px 20px 40px;
+    text-align:center;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.35), transparent 40%),
+      linear-gradient(180deg, var(--curtain-red) 0%, var(--curtain-red-2) 55%, var(--ink) 100%);
+    border-bottom:3px solid var(--gold-dim);
+    overflow:hidden;
+  }
+  header.hero::before, header.hero::after{
+    content:"";
+    position:absolute; top:0; bottom:0; width:18%;
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,.28) 0 14px, rgba(0,0,0,0) 14px 32px),
+      linear-gradient(180deg, var(--curtain-red-bright), var(--curtain-red-2));
+    filter: drop-shadow(4px 0 10px rgba(0,0,0,.5));
+  }
+  header.hero::before{ left:0; border-radius:0 0 60% 0/0 0 40% 0; }
+  header.hero::after{ right:0; border-radius:0 0 0 60%/0 0 0 40%; }
+  .hero-inner{ position:relative; z-index:2; max-width:920px; margin:0 auto;}
+  .eyebrow-ticket{
+    display:inline-block;
+    font-family:'Karla',sans-serif;
+    font-weight:700;
+    font-size:.72rem;
+    letter-spacing:.16em;
+    color:var(--ink);
+    background:var(--gold-bright);
+    padding:5px 14px;
+    border-radius:2px;
+    transform:rotate(-1.5deg);
+    box-shadow:0 3px 0 rgba(0,0,0,.3);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 6vw, 3.6rem);
+    line-height:1.05;
+    text-shadow:0 3px 18px rgba(0,0,0,.6);
+    margin-bottom:.25em;
+  }
+  .hero .amp{ color:var(--cream); font-style:italic; font-weight:600;}
+  .hero-sub{
+    font-size:1.05rem;
+    color:var(--cream-dim);
+    margin-bottom:22px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:14px 28px; justify-content:center;
+    margin-bottom:22px; font-size:.95rem;
+  }
+  .hero-meta div{ display:flex; align-items:center; gap:8px; color:var(--cream);}
+  .hero-meta strong{ color:var(--gold-bright); font-weight:700;}
+
+  .day-toggle{ display:flex; gap:10px; justify-content:center; margin-bottom:24px; flex-wrap:wrap;}
+  .day-toggle button{
+    font-family:'Karla',sans-serif; font-weight:700; font-size:.82rem; letter-spacing:.04em;
+    background:rgba(0,0,0,.32); border:1px solid var(--gold-dim); color:var(--cream-dim);
+    padding:9px 18px; border-radius:99px; cursor:pointer; transition:all .15s;
+  }
+  .day-toggle button.active{ background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .day-toggle button:hover:not(.active){ color:var(--cream); border-color:var(--gold-bright);}
+
+  .countdown{
+    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+  }
+  .countdown .cell{
+    background:rgba(0,0,0,.35);
+    border:1px solid var(--gold-dim);
+    border-radius:var(--radius);
+    padding:10px 16px;
+    min-width:74px;
+  }
+  .countdown .num{
+    font-family:'Playfair Display',serif; font-weight:800; font-size:1.6rem; color:var(--gold-bright); display:block;
+  }
+  .countdown .lbl{ font-size:.65rem; letter-spacing:.12em; color:var(--cream-dim);}
+  .countdown-cap{ font-size:.76rem; color:var(--cream-dim); margin-bottom:10px; letter-spacing:.04em;}
+
+  .status-banner{
+    margin-top:26px; display:inline-flex; align-items:center; gap:10px;
+    background:rgba(201,82,74,.15); border:1px solid var(--danger);
+    color:#f2c6c2; padding:10px 18px; border-radius:999px; font-size:.9rem; font-weight:600;
+  }
+  .status-dot{ width:8px; height:8px; border-radius:50%; background:var(--danger); box-shadow:0 0 8px var(--danger); flex:none;}
+  .cloud-status{
+    margin-top:14px; font-size:.76rem; color:var(--cream-dim); max-width:520px; margin-left:auto; margin-right:auto;
+  }
+  .cloud-status.on{ color:#9be3c6; }
+  .cloud-status.off{ color:var(--cream-dim); }
+
+  /* ---------- Nav ---------- */
+  nav.tabs{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, var(--ink-2), var(--ink));
+    border-bottom:2px solid var(--gold-dim);
+    display:flex; overflow-x:auto; scrollbar-width:thin;
+  }
+  nav.tabs::-webkit-scrollbar{ height:6px;}
+  nav.tabs::-webkit-scrollbar-thumb{ background:var(--gold-dim); border-radius:3px;}
+  nav.tabs button{
+    flex:none;
+    background:transparent; border:none; cursor:pointer;
+    color:var(--cream-dim);
+    font-family:'Karla',sans-serif; font-weight:700; font-size:.85rem;
+    letter-spacing:.03em;
+    padding:16px 18px 13px;
+    border-bottom:3px solid transparent;
+    transition:color .15s, border-color .15s, background .15s;
+    white-space:nowrap;
+  }
+  nav.tabs button:hover{ color:var(--cream); background:rgba(255,255,255,.03);}
+  nav.tabs button.active{ color:var(--gold-bright); border-bottom-color:var(--gold-bright);}
+
+  main{ max-width:1180px; margin:0 auto; padding:36px 18px 90px;}
+  section.panel{ display:none; animation:fadein .35s ease; }
+  section.panel.active{ display:block; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .section-head{ margin-bottom:26px; max-width:720px;}
+  .section-head p{ color:var(--cream-dim); font-size:1rem;}
+  .playbill-num{
+    font-family:'Playfair Display',serif; font-style:italic; color:var(--gold);
+    font-size:1rem; margin-right:8px;
+  }
+
+  .card{
+    background:linear-gradient(180deg, var(--ink-3), var(--ink-2));
+    border:1px solid rgba(201,162,74,.28);
+    border-radius:var(--radius);
+    padding:22px;
+  }
+  .grid-2{ display:grid; grid-template-columns:1.1fr .9fr; gap:22px;}
+  .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:820px){ .grid-2, .grid-3{ grid-template-columns:1fr; } }
+
+  /* Overview */
+  .fact-list{ list-style:none; margin:0; padding:0;}
+  .fact-list li{
+    display:flex; gap:14px; padding:12px 0; border-bottom:1px dashed rgba(201,162,74,.25);
+  }
+  .fact-list li:last-child{ border-bottom:none;}
+  .fact-list .ico{ font-size:1.3rem; flex:none; width:28px; text-align:center;}
+  .fact-list .lbl{ font-size:.72rem; letter-spacing:.08em; color:var(--gold); display:block; margin-bottom:2px;}
+  .fact-list .val{ color:var(--cream); font-size:.98rem;}
+  .fact-list .val small{ display:block; color:var(--cream-dim); font-weight:400; margin-top:2px;}
+
+  .timeline{ list-style:none; margin:0; padding:0; position:relative;}
+  .timeline::before{
+    content:""; position:absolute; left:52px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(180deg, var(--gold-dim), transparent);
+  }
+  .timeline li{ display:flex; gap:18px; padding:14px 0; position:relative;}
+  .timeline .time{
+    width:52px; flex:none; text-align:right; font-weight:700; color:var(--gold-bright); font-size:.85rem; padding-top:2px;
+  }
+  .timeline .dot{
+    width:10px; height:10px; border-radius:50%; background:var(--gold); border:2px solid var(--ink);
+    position:absolute; left:47px; top:6px; box-shadow:0 0 0 2px var(--gold-dim);
+  }
+  .timeline .txt{ padding-left:16px;}
+  .timeline .txt b{ color:var(--cream); display:block; margin-bottom:2px;}
+  .timeline .txt span{ color:var(--cream-dim); font-size:.86rem;}
+
+  .note{
+    font-size:.84rem; color:var(--cream-dim); background:rgba(201,162,74,.08);
+    border:1px dashed var(--gold-dim); border-radius:var(--radius); padding:12px 14px; margin-top:16px;
+  }
+  .note b{ color:var(--gold-bright);}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    font-family:'Karla',sans-serif; font-weight:700; font-size:.88rem;
+    padding:11px 20px; border-radius:3px; border:1px solid var(--gold);
+    background:transparent; color:var(--gold-bright); cursor:pointer;
+    transition:transform .12s, background .15s, color .15s;
+    text-decoration:none;
+  }
+  .btn:hover{ background:var(--gold); color:var(--ink); transform:translateY(-1px);}
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none;}
+  .btn.primary{ background:var(--gold); color:var(--ink);}
+  .btn.primary:hover{ background:var(--gold-bright);}
+  .btn.small{ padding:7px 14px; font-size:.78rem;}
+  .btn.danger{ border-color:var(--danger); color:#f2c6c2;}
+  .btn.danger:hover{ background:var(--danger); color:#fff;}
+
+  /* ---------- Seat map ---------- */
+  .seatmap-wrap{ display:grid; grid-template-columns:1fr 300px; gap:20px; align-items:start;}
+  @media (max-width:960px){ .seatmap-wrap{ grid-template-columns:1fr; } }
+
+  .stage-block{
+    background:linear-gradient(180deg,#0a0708,#000);
+    color:var(--gold-bright); text-align:center; font-family:'Playfair Display',serif;
+    font-weight:800; letter-spacing:.3em; font-size:1.1rem;
+    padding:16px; border-radius:4px 4px 40% 40%/4px 4px 16px 16px;
+    border:1px solid var(--gold-dim); margin-bottom:0;
+  }
+  .catwalk-col{
+    width:30px; align-self:stretch; flex:none;
+    background:linear-gradient(180deg,#0a0708,#000);
+    border-left:1px solid var(--gold-dim); border-right:1px solid var(--gold-dim);
+  }
+  .control-col{ display:flex; align-items:center; flex:none; }
+  .control-box{
+    background:#54504f; color:#e7e0d6; font-family:'Karla',sans-serif; font-weight:800;
+    font-size:.62rem; line-height:1.3; letter-spacing:.08em; text-align:center; padding:10px 14px;
+    border-radius:4px; border:1px solid rgba(255,255,255,.15);
+  }
+  .catwalk-row{ display:flex; flex-direction:column; align-items:center; margin:0 auto 8px;}
+  .secondary-stage{
+    width:150px; height:44px;
+    background:linear-gradient(180deg,#0a0708,#000);
+    clip-path:polygon(14% 0, 86% 0, 56% 100%, 44% 100%);
+    border-left:1px solid var(--gold-dim); border-right:1px solid var(--gold-dim);
+  }
+  .secondary-stage-lbl{
+    font-size:.55rem; letter-spacing:.14em; color:var(--gold-dim); margin-top:4px; text-align:center;
+  }
+
+  .venue-scroll{ overflow-x:auto; padding-bottom:10px;}
+  .venue{ min-width:820px; }
+  .venue-row{ display:flex; justify-content:center; gap:12px; margin-bottom:12px; flex-wrap:nowrap;}
+
+  .zone{
+    background:rgba(0,0,0,.22);
+    border:1px solid rgba(201,162,74,.22);
+    border-radius:4px;
+    padding:8px 8px 10px;
+  }
+  .zone .zname{
+    text-align:center; font-size:.7rem; letter-spacing:.06em; color:var(--gold);
+    margin-bottom:6px; font-weight:700;
+  }
+  .zone .zprice{ display:block; font-size:.6rem; color:var(--cream-dim); font-weight:400; letter-spacing:.02em;}
+  .seatrow{ display:flex; gap:2.5px; justify-content:center; margin-bottom:2.5px;}
+  .rowlabel{
+    font-size:.52rem; color:var(--cream-dim); width:15px; text-align:right; line-height:11px; flex:none; padding-right:2px;
+  }
+  .seat-gap{ flex:none; }
+  .seat{
+    width:10px; height:10px; border-radius:2px 2px 3px 3px;
+    border:1px solid rgba(0,0,0,.4);
+    cursor:pointer; padding:0; flex:none;
+    transition:transform .1s;
+  }
+  .seat:hover:not(.sold){ transform:scale(1.6); z-index:2; position:relative; box-shadow:0 0 6px rgba(236,206,133,.7);}
+  .seat.sold{ background:var(--seat-sold) !important; border-color:var(--seat-sold-2); cursor:not-allowed;}
+  .seat.selected{ background:var(--seat-mine) !important; border-color:#fff; }
+  .seat.mine{ background:var(--seat-mine) !important; border-color:#fff; box-shadow:0 0 0 1px var(--gold-bright);}
+  .seat.t6900{ background:var(--p6900); }
+  .seat.t5900{ background:var(--p5900); }
+  .seat.t4500{ background:var(--p4500); }
+  .seat.t4000{ background:var(--p4000); }
+  .seat.t3500{ background:var(--p3500); }
+  .seat.t3000{ background:var(--p3000); }
+  .seat.t2500{ background:var(--p2500); }
+  .seat.t2000{ background:var(--p2000); }
+  .seat.t1500{ background:var(--p1500); }
+
+  .legend{ display:flex; flex-wrap:wrap; gap:10px 16px; margin:16px 0; font-size:.75rem; color:var(--cream-dim);}
+  .legend span{ display:inline-flex; align-items:center; gap:6px;}
+  .legend i{ width:11px; height:11px; border-radius:2px; display:inline-block;}
+
+  .cart-card{ position:sticky; top:76px; }
+  .cart-card h3{ font-size:1.1rem;}
+  .cart-empty{ color:var(--cream-dim); font-size:.88rem; padding:14px 0;}
+  .cart-item{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.86rem; padding:8px 0; border-bottom:1px dashed rgba(201,162,74,.2);
+  }
+  .cart-item button{ background:none; border:none; color:var(--danger); cursor:pointer; font-size:1rem;}
+  .cart-total{ display:flex; justify-content:space-between; font-weight:800; color:var(--gold-bright); padding:12px 0; font-size:1.05rem;}
+
+  /* ---------- Tickets & Benefits ---------- */
+  .tier-card{
+    border-radius:var(--radius); border:1px solid rgba(201,162,74,.3); overflow:hidden;
+    display:flex; flex-direction:column; background:linear-gradient(180deg, var(--ink-3), var(--ink-2));
+  }
+  .tier-card .tier-head{ padding:16px 18px; border-bottom:1px solid rgba(201,162,74,.25); display:flex; align-items:center; gap:10px;}
+  .tier-card .swatch{ width:16px; height:16px; border-radius:3px; flex:none; border:1px solid rgba(0,0,0,.4);}
+  .tier-card .price{ font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--gold-bright); font-weight:800;}
+  .tier-card .price small{ font-family:'Karla',sans-serif; font-size:.58rem; color:var(--cream-dim); font-weight:400;}
+  .tier-card ul{ list-style:none; margin:0; padding:14px 18px; flex:1; font-size:.84rem;}
+  .tier-card li{ padding:5px 0; display:flex; gap:8px; color:var(--cream-dim);}
+  .tier-card li::before{ content:"✦"; color:var(--gold); flex:none;}
+
+  .pickup-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin:14px 0; font-size:.84rem;}
+  @media (max-width:700px){ .pickup-grid{ grid-template-columns:1fr; } }
+  .pickup-grid div{ padding:8px 10px; background:rgba(0,0,0,.22); border:1px solid rgba(201,162,74,.2); border-radius:4px; color:var(--cream-dim);}
+  .pickup-grid b{ color:var(--cream);}
+  .doc-list{ margin:8px 0 0; padding-left:20px; color:var(--cream-dim); font-size:.86rem;}
+  .doc-list li{ margin-bottom:4px;}
+
+  /* ---------- Transportation ---------- */
+  .transport-card{ display:flex; gap:14px; padding:16px 0; border-bottom:1px solid rgba(201,162,74,.15);}
+  .transport-card:last-child{ border-bottom:none;}
+  .transport-card .ico{ font-size:1.6rem; flex:none; width:38px; text-align:center;}
+  .transport-card h4{ color:var(--cream); font-size:1rem; margin-bottom:3px; font-family:'Karla',sans-serif; font-weight:700;}
+  .transport-card p{ margin:0; color:var(--cream-dim); font-size:.88rem;}
+  .pill{ display:inline-block; font-size:.66rem; font-weight:700; letter-spacing:.05em; color:var(--ink); background:var(--gold); padding:2px 9px; border-radius:99px; margin-left:8px; vertical-align:middle;}
+
+  .map-card{ text-align:center; }
+  .map-card .addr{ font-size:.92rem; color:var(--cream); margin:10px 0 4px;}
+  .map-card .coords{ font-size:.76rem; color:var(--cream-dim); margin-bottom:16px;}
+  .map-frame-placeholder{
+    background:
+      repeating-linear-gradient(45deg, rgba(201,162,74,.06) 0 10px, transparent 10px 20px),
+      var(--ink);
+    border:1px dashed var(--gold-dim); border-radius:var(--radius);
+    padding:34px 18px; margin-bottom:16px; color:var(--cream-dim); font-size:.85rem;
+  }
+  .map-frame-placeholder .pin{ font-size:2rem; display:block; margin-bottom:8px;}
+
+  /* ---------- Forms ---------- */
+  form .frow{ margin-bottom:14px;}
+  form label{ display:block; font-size:.76rem; letter-spacing:.05em; color:var(--gold); margin-bottom:6px; font-weight:700;}
+  form input, form select, form textarea{
+    width:100%; background:rgba(0,0,0,.3); border:1px solid var(--gold-dim); color:var(--cream);
+    border-radius:4px; padding:10px 12px; font-family:'Karla',sans-serif; font-size:.9rem;
+  }
+  form input:focus, form select:focus, form textarea:focus{ outline:2px solid var(--gold-bright); outline-offset:1px;}
+  form .frow-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  form .frow-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;}
+  @media (max-width:600px){ form .frow-2, form .frow-3{ grid-template-columns:1fr; } }
+
+  .board-filters{ display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap;}
+  .board-filters button{
+    background:rgba(0,0,0,.25); border:1px solid var(--gold-dim); color:var(--cream-dim);
+    padding:7px 15px; border-radius:99px; font-size:.8rem; cursor:pointer; font-weight:600;
+  }
+  .board-filters button.active{ background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .board-filters.secondary{ margin-bottom:18px;}
+  .board-filters.secondary button{ border-style:dashed;}
+
+  .listing{
+    border:1px solid rgba(201,162,74,.28); border-radius:var(--radius); padding:16px 18px; margin-bottom:12px;
+    background:rgba(0,0,0,.2);
+  }
+  .listing-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .tag{ font-size:.63rem; font-weight:800; letter-spacing:.05em; padding:3px 9px; border-radius:99px; white-space:nowrap;}
+  .tag.sell{ background:rgba(87,181,134,.18); color:#7fd6ac; border:1px solid #7fd6ac;}
+  .tag.buy{ background:rgba(217,138,61,.18); color:var(--warn); border:1px solid var(--warn);}
+  .tag.trade{ background:rgba(201,162,74,.18); color:var(--gold-bright); border:1px solid var(--gold);}
+  .tag.method{ background:rgba(154,161,168,.18); color:#cfd3d7; border:1px solid #9aa1a8;}
+  .tag.day{ background:rgba(63,201,198,.15); color:#8fe3e1; border:1px solid #3fc9c6;}
+  .listing h4{ margin:0; color:var(--cream); font-family:'Karla',sans-serif; font-size:1rem;}
+  .listing .price{ color:var(--gold-bright); font-weight:800; font-family:'Playfair Display',serif;}
+  .listing p{ margin:6px 0; color:var(--cream-dim); font-size:.88rem;}
+  .listing .meta{ display:flex; gap:14px; font-size:.76rem; color:var(--cream-dim); margin-top:8px; flex-wrap:wrap;}
+  .listing .meta b{ color:var(--gold);}
+  .listing .row-end{ display:flex; justify-content:space-between; align-items:center; margin-top:10px;}
+  .listing .badges{ display:flex; gap:6px; flex-wrap:wrap;}
+  .empty-state{ text-align:center; padding:40px 20px; color:var(--cream-dim);}
+  .empty-state .big{ font-size:2.4rem; margin-bottom:10px;}
+
+  .warn-box{
+    background:rgba(217,138,61,.1); border:1px solid var(--warn); border-radius:var(--radius);
+    padding:14px 16px; font-size:.85rem; color:#f2d9b8; margin-bottom:20px;
+  }
+  .warn-box b{ color:var(--warn);}
+
+  footer{
+    text-align:center; padding:30px 18px 50px; color:var(--cream-dim); font-size:.8rem;
+    border-top:1px solid rgba(201,162,74,.2);
+  }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--gold); color:var(--ink); font-weight:700; font-size:.88rem;
+    padding:12px 22px; border-radius:99px; box-shadow:var(--shadow-deep);
+    opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:200;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ---------- Ticket modal ---------- */
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,.78); z-index:300;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .modal-backdrop.hidden{ display:none; }
+  .modal-panel{
+    background:var(--ink-2); border:1px solid var(--gold-dim); border-radius:8px;
+    max-width:540px; width:100%; max-height:85vh; overflow-y:auto; padding:24px 22px; position:relative;
+  }
+  .modal-close{
+    position:absolute; top:12px; right:14px; background:none; border:none;
+    color:var(--cream-dim); font-size:1.3rem; cursor:pointer; line-height:1;
+  }
+  .modal-close:hover{ color:var(--gold-bright); }
+
+  .ticket{
+    display:flex; flex-direction:column; background:linear-gradient(135deg,#fbf3e0,#f2e3c4);
+    color:#241a1d; border-radius:6px; overflow:hidden; margin-bottom:18px;
+    box-shadow:0 10px 26px rgba(0,0,0,.4);
+  }
+  .ticket-top{ display:flex; }
+  .ticket-main{ flex:1; padding:16px 18px; min-width:0; }
+  .ticket-main .sub{ font-size:.66rem; letter-spacing:.1em; color:#8a6f34; text-transform:uppercase; margin-bottom:2px;}
+  .ticket-main h4{ font-family:'Playfair Display',serif; color:#3a0a13; margin:0 0 10px; font-size:1.05rem;}
+  .ticket-row{ display:flex; justify-content:space-between; gap:10px; font-size:.8rem; padding:3px 0; border-bottom:1px dotted rgba(0,0,0,.18);}
+  .ticket-row span{ color:#6b5a3f; }
+  .ticket-row b{ color:#3a0a13; }
+  .ticket-code{ font-family:monospace; font-size:.66rem; letter-spacing:.03em; color:#8a6f34; margin-top:10px; word-break:break-all;}
+  .ticket-stub{
+    width:112px; flex:none; background:rgba(0,0,0,.06); border-left:2px dashed rgba(0,0,0,.28);
+    padding:16px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  }
+  .ticket-stub .seat-big{ font-family:'Playfair Display',serif; font-weight:800; font-size:1.5rem; color:#3a0a13; line-height:1.1;}
+  .ticket-stub .zone-small{ font-size:.6rem; letter-spacing:.08em; color:#8a6f34;}
+  .ticket-note{
+    font-size:.62rem; letter-spacing:.03em; color:#8a1f31; font-weight:700; text-align:center;
+    padding:7px 10px; border-top:1px dashed rgba(0,0,0,.22);
+  }
+  @media (max-width:480px){ .ticket-top{ flex-direction:column; } .ticket-stub{ width:auto; border-left:none; border-top:2px dashed rgba(0,0,0,.28); flex-direction:row; gap:14px; padding:10px;} }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--ink);}
+  ::-webkit-scrollbar-thumb{ background:var(--gold-dim); border-radius:5px;}
+</style>
+</head>
+<body>
+
+<div class="bulb-row">
+  <div class="bulb"></div><div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+  <div class="bulb"></div><div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+  <div class="bulb"></div><div class="bulb"></div><div class="bulb"></div><div class="bulb"></div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow-ticket">GMMTV presents</span>
+    <h1>NAMTAN <span class="amp">&amp;</span> FILM<br>GLAMOROUS FANCON</h1>
+    <p class="hero-sub">A Broadway-style theatre spectacular — the unofficial fan hub for tickets, seats &amp; friends</p>
+    <div class="hero-meta">
+      <div>🗓️ <strong>13–14 November 2026</strong></div>
+      <div>🕔 <strong>Show starts 17:00</strong> (ICT), both nights</div>
+      <div>📍 <strong>Union Hall, Union Mall</strong>, Bangkok</div>
+    </div>
+    <div class="day-toggle" id="day-toggle">
+      <button data-day="13" class="active">DAY 1 · SAT 13 NOV</button>
+      <button data-day="14">DAY 2 · SUN 14 NOV</button>
+    </div>
+    <div class="countdown-cap" id="countdown-cap">Counting down to Day 1</div>
+    <div class="countdown" id="countdown">
+      <div class="cell"><span class="num" id="cd-days">–</span><span class="lbl">DAYS</span></div>
+      <div class="cell"><span class="num" id="cd-hours">–</span><span class="lbl">HOURS</span></div>
+      <div class="cell"><span class="num" id="cd-mins">–</span><span class="lbl">MINS</span></div>
+      <div class="cell"><span class="num" id="cd-secs">–</span><span class="lbl">SECS</span></div>
+    </div>
+    <div><span class="status-banner"><span class="status-dot"></span> Official tickets SOLD OUT — trade with fans on the Exchange Board</span></div>
+    <div class="cloud-status" id="cloud-status">Checking sync status…</div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="overview" class="active">Show Info</button>
+  <button data-tab="seatmap">Seat Map</button>
+  <button data-tab="tickets">Tickets &amp; Benefits</button>
+  <button data-tab="transport">Getting There</button>
+  <button data-tab="board">Exchange Board</button>
+  <button data-tab="buddy">Travel Buddy</button>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section class="panel active" id="panel-overview">
+    <div class="section-head">
+      <h2><span class="playbill-num">Act I</span>Show Information</h2>
+      <p>Two nights of the Glamorous Theatre — everything confirmed so far, plus a typical fancon run-of-show so you can plan your day.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>The Details</h3>
+        <ul class="fact-list">
+          <li><span class="ico">🎭</span><div><span class="lbl">Artists</span><span class="val">Namtan Tipnaree &amp; Film Rachanun</span></div></li>
+          <li><span class="ico">📅</span><div><span class="lbl">Dates</span><span class="val">Friday 13 &amp; Saturday 14 November 2026 — two separate shows, two separate tickets<small>Use the DAY 1 / DAY 2 toggle above to switch context anywhere in this hub</small></span></div></li>
+          <li><span class="ico">🕔</span><div><span class="lbl">Show time</span><span class="val">Show starts 17:00 (5 PM) both nights<small>Exact gate time to be confirmed on your e‑ticket</small></span></div></li>
+          <li><span class="ico">📍</span><div><span class="lbl">Venue</span><span class="val">Union Hall, 6th Floor (F6), Union Mall, Bangkok</span></div></li>
+          <li><span class="ico">🌐</span><div><span class="lbl">Livestream</span><span class="val">Worldwide via TTM LIVE for fans who can't attend in person</span></div></li>
+          <li><span class="ico">🎟️</span><div><span class="lbl">Ticket sales</span><span class="val">Presale 12 Sep 2026 (TTM website only) · General sale 13 Sep 2026 (all ThaiTicketMajor channels)<small>Both sale dates have passed and both shows are sold out</small></span></div></li>
+          <li><span class="ico">🎫</span><div><span class="lbl">Price range</span><span class="val">฿1,500 – ฿6,900 across 9 seating tiers</span></div></li>
+        </ul>
+        <div class="note">Source: GMMTV, ThaiTicketMajor &amp; the official seat chart. <b>Run-of-show times are estimates</b> based on typical GMMTV fancon format — always check your official e-ticket and GMMTV's channels closer to the date for the confirmed schedule.</div>
+      </div>
+      <div class="card">
+        <h3>Estimated Day Schedule</h3>
+        <ul class="timeline">
+          <li><span class="time">15:00</span><span class="dot"></span><div class="txt"><b>Doors open</b><span>Entry &amp; seating, merchandise booths open</span></div></li>
+          <li><span class="time">16:30</span><span class="dot"></span><div class="txt"><b>Pre-show &amp; house rules</b><span>Photography policy, safety briefing, hype VT</span></div></li>
+          <li><span class="time">17:00</span><span class="dot"></span><div class="txt"><b>FANCON begins</b><span>Opening performance — theatre curtain rises</span></div></li>
+          <li><span class="time">17:15</span><span class="dot"></span><div class="txt"><b>Talk &amp; games segment</b><span>Namtan &amp; Film share stories, fan games, Q&amp;A</span></div></li>
+          <li><span class="time">18:15</span><span class="dot"></span><div class="txt"><b>Musical / theatrical performance block</b><span>The "Glamorous Theatre" set pieces</span></div></li>
+          <li><span class="time">19:15</span><span class="dot"></span><div class="txt"><b>Hi-touch / photo moment</b><span>Tier-dependent — see Tickets &amp; Benefits</span></div></li>
+          <li><span class="time">20:00</span><span class="dot"></span><div class="txt"><b>Closing performance &amp; farewell</b><span>Final number and goodbyes</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEAT MAP -->
+  <section class="panel" id="panel-seatmap">
+    <div class="section-head">
+      <h2><span class="playbill-num">Act II</span>Interactive Seat Map</h2>
+      <p id="seatmap-day-label">Union Hall's official layout, redrawn zone-by-zone (A1–E3) so you can see exactly where a seat sits and reserve your own spot for tracking.</p>
+    </div>
+
+    <div class="warn-box"><b>About this map:</b> it's a close recreation of the official seating chart for reference and planning — exact row lengths in the corner and grandstand blocks are approximate. Your real, ticketed seat is only the one printed on your e‑ticket. Seat status you set here is saved <b>only in this browser</b> as a personal planner — it isn't synced with other fans or with ThaiTicketMajor.</div>
+
+    <div class="seatmap-wrap">
+      <div class="card">
+        <div class="stage-block">STAGE</div>
+
+        <div class="legend" id="legend"></div>
+        <div class="venue-scroll">
+          <div class="venue" id="venue"></div>
+        </div>
+      </div>
+
+      <div class="card cart-card">
+        <h3>Your Selection</h3>
+        <div id="cart-list"><div class="cart-empty">Click open seats on the map to select them (up to 6).</div></div>
+        <div class="cart-total" id="cart-total" style="display:none;">
+          <span>Est. total</span><span id="cart-total-price">฿0</span>
+        </div>
+        <button class="btn primary" id="reserve-btn" style="width:100%; margin-top:6px; display:none;">Reserve these seats for myself</button>
+        <div class="note" style="margin-top:14px;">Personal tracker only — not a live purchase. Great for marking the seat you already hold, or the seat you're hoping to grab on the Exchange Board.</div>
+        <div id="my-reservations" style="margin-top:18px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKETS & BENEFITS -->
+  <section class="panel" id="panel-tickets">
+    <div class="section-head">
+      <h2><span class="playbill-num">Act III</span>Tickets &amp; Fan Benefits</h2>
+      <p>The full 9-tier breakdown from the official seat chart. Benefit details are typical of GMMTV fancon formats — confirm exact inclusions on your ThaiTicketMajor order or GMMTV's official posts.</p>
+    </div>
+    <div class="grid-3" id="tier-cards"></div>
+
+    <h3 style="margin-top:34px;">How to Collect Your Ticket</h3>
+    <div class="card">
+      <div class="pickup-grid">
+        <div><b>Collection period</b><br>10 Oct – 8 Nov 2026. After that, collect on-site at the venue on your show day only.</div>
+        <div><b>Self pick-up</b><br>Show your ID card or passport (matching the number used at checkout) at any of the 11 outlets below.</div>
+        <div><b>By post</b><br>Tickets are mailed out during the collection period. If delivery fails, fall back to on-site pickup on show day.</div>
+        <div><b>On-site (show day)</b><br>Available only for that day's show — a Day 1 ticket can't be collected as a Day 2 fallback or vice versa.</div>
+      </div>
+
+      <h4 style="font-size:.95rem; margin-top:18px;">11 ThaiTicketMajor pick-up outlets (Bangkok)</h4>
+      <ul class="doc-list" style="columns:2; -webkit-columns:2;">
+        <li>Central Pinklao, Floor 3</li>
+        <li>Central Bangna, Floor 1</li>
+        <li>Siam Paragon, Floor 5</li>
+        <li>Esplanade Ratchadapisek, Floor 4</li>
+        <li>Major Rangsit, Floor 2</li>
+        <li>Major Ratchayothin, Floor 27</li>
+        <li>Maleenont Tower, Floor 9</li>
+        <li>Siam Square One, Floor 7</li>
+        <li>Samyan Mitrtown, Floor 3</li>
+        <li>Central Chidlom, Floor 2</li>
+        <li>Central Ladprao, Floor 3</li>
+      </ul>
+
+      <h4 style="font-size:.95rem; margin-top:18px;">If you paid by credit / debit card</h4>
+      <p style="color:var(--cream-dim); font-size:.86rem; margin:4px 0 8px;">Collecting it yourself, bring:</p>
+      <ul class="doc-list">
+        <li>Your ThaiTicketMajor order confirmation</li>
+        <li>Your ID card / passport (the cardholder's)</li>
+        <li>The physical credit or debit card used to pay (or your ID, if you paid via K‑Web Shopping Card)</li>
+        <li>If the TTM login isn't the cardholder, also bring the account holder's ID</li>
+      </ul>
+      <p style="color:var(--cream-dim); font-size:.86rem; margin:12px 0 8px;">Sending someone else to collect on your behalf? They'll need:</p>
+      <ul class="doc-list">
+        <li>The order confirmation</li>
+        <li>A signed authorization letter naming the last 4 digits of your card</li>
+        <li>A signed copy of your ID/passport (the cardholder's)</li>
+        <li>A signed copy of their own ID/passport</li>
+      </ul>
+
+      <div class="note" style="margin-top:16px;">
+        <b>Good to know:</b> one ID/passport = one purchase per show, up to 6 tickets per show (12 across both nights). Once a purchase is complete, seats can't be changed, exchanged, or refunded except through the venue's official cancellation window — see your order confirmation for details.
+      </div>
+    </div>
+
+    <div class="note" style="max-width:760px; margin-top:20px;">All ticket sales are handled exclusively by <a href="https://www.thaiticketmajor.com/concert/namtan-film-glamorous-fancon.html" target="_blank" rel="noopener">ThaiTicketMajor</a>. This hub does not sell tickets — for buying or selling a ticket you already hold, use the Exchange Board tab.</div>
+  </section>
+
+  <!-- TRANSPORT -->
+  <section class="panel" id="panel-transport">
+    <div class="section-head">
+      <h2><span class="playbill-num">Act IV</span>Getting to Union Hall</h2>
+      <p>Union Mall sits right on top of MRT Phahon Yothin — plan for heavy crowds and traffic on both show nights.</p>
+    </div>
+
+    <div class="card map-card" style="margin-bottom:22px;">
+      <div class="map-frame-placeholder">
+        <span class="pin">📍</span>
+        Union Hall, Union Mall — 54 Soi Lat Phrao 1, Chomphon, Chatuchak, Bangkok 10900
+      </div>
+      <div class="addr">54 Soi Lat Phrao 1, Chomphon, Chatuchak, Bangkok 10900, Thailand</div>
+      <div class="coords">13.813587° N, 100.561841° E</div>
+      <a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=Union+Mall+Bangkok&query_place_id=" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Public transport</h3>
+        <div class="transport-card">
+          <div class="ico">🚇</div>
+          <div><h4>MRT Blue Line — Phahon Yothin <span class="pill">Most convenient</span></h4>
+          <p>Take Exit 5 — it leads straight to the front of Union Mall. This is the route Union Mall itself recommends.</p></div>
+        </div>
+        <div class="transport-card">
+          <div class="ico">🚆</div>
+          <div><h4>BTS Sukhumvit Line — Ha Yaek Lat Phrao</h4>
+          <p>Take Exit 2, then walk up onto the MRT skywalk bridge to reach the mall — about 400 metres.</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Coming from Don Mueang Airport (DMK)</h3>
+        <div class="transport-card">
+          <div class="ico">🚌</div>
+          <div><h4>Step 1 — Airport shuttle bus to BTS Mo Chit</h4>
+          <p>Take bus <b style="color:var(--cream)">A1</b> (Don Mueang → BTS Mo Chit) or <b style="color:var(--cream)">A2</b> (Don Mueang → Victory Monument). Board at Terminal 1 (International), Floor 1, Gate 6, or Terminal 2 (Domestic), Floor 2, Gate 12/14.</p></div>
+        </div>
+        <div class="transport-card">
+          <div class="ico">🚉</div>
+          <div><h4>Step 2 — Get off at the BTS Mo Chit stop</h4>
+          <p>Then continue one stop by BTS or MRT into Union Mall using the routes on the left — MRT Phahon Yothin Exit 5 is the most convenient.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:22px;">
+      <div class="card">
+        <h3>Driving &amp; other options</h3>
+        <div class="transport-card">
+          <div class="ico">🚗</div>
+          <div><h4>Self-drive / parking</h4>
+          <p>From Lat Phrao Road, take the Ha Yaek (five-junction) overpass and keep to the left lane, then turn left straight into Union Mall. Multi-storey parking is available but fills up fast on show day — arrive early or use the MRT if you can.</p></div>
+        </div>
+        <div class="transport-card">
+          <div class="ico">🚕</div>
+          <div><h4>Taxi / Grab</h4>
+          <p>Roughly a 10-minute ride from the Siam/BTS Mo Chit area outside rush hour — build in extra time for event-night traffic near the venue.</p></div>
+        </div>
+        <div class="transport-card">
+          <div class="ico">🤝</div>
+          <div><h4>Split the ride</h4>
+          <p>Heading in with a Grab or car and have spare seats? Post it on the Travel Buddy tab so other fans can join you and split the fare.</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Bus routes stopping near Union Mall</h3>
+        <p style="color:var(--cream-dim); font-size:.9rem; margin-top:0;">8, 24, 26, 27, 28, 29, 34, 38, 39, 44, 59, 92, 96, 104, 107, 122, 129, 136, 145, 157, 182, 188, 191, 502, 503, 517, 524, 529, 545, and more.</p>
+        <div class="note" style="margin-top:14px;">Directions are sourced from Union Mall's own travel guidance and general mapping data, not official concert instructions — double check live conditions with a maps app on the day.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXCHANGE BOARD -->
+  <section class="panel" id="panel-board">
+    <div class="section-head">
+      <h2><span class="playbill-num">Act V</span>Ticket Exchange Board</h2>
+      <p>Since both shows are sold out, this is the fan-to-fan board to sell, buy, or swap tickets and seats — filter by show day and how the ticket changes hands.</p>
+    </div>
+
+    <div class="warn-box"><b>Trade safely:</b> never send payment before verifying the ticket's QR/order code, prefer meeting in person or using ThaiTicketMajor's official ticket transfer feature if available, and be wary of anyone rushing you or asking for a deposit via an untraceable method.</div>
+
+    <div class="grid-2" style="align-items:start;">
+      <div class="card">
+        <h3>Post a listing</h3>
+        <form id="board-form">
+          <div class="frow-2">
+            <div class="frow">
+              <label>Listing type</label>
+              <select id="b-type">
+                <option value="sell">Sell a ticket</option>
+                <option value="buy">Looking to buy</option>
+                <option value="trade">Trade / swap seat</option>
+              </select>
+            </div>
+            <div class="frow">
+              <label>Show day</label>
+              <select id="b-day">
+                <option value="13">Day 1 · Sat 13 Nov</option>
+                <option value="14">Day 2 · Sun 14 Nov</option>
+              </select>
+            </div>
+          </div>
+          <div class="frow-3">
+            <div class="frow"><label>Zone</label><input id="b-zone" placeholder="e.g. A2" required></div>
+            <div class="frow"><label>Row</label><input id="b-row" placeholder="e.g. AA"></div>
+            <div class="frow"><label>Seat no.</label><input id="b-seatno" placeholder="e.g. 15 or 15–16"></div>
+          </div>
+          <div class="frow-2">
+            <div class="frow"><label>Quantity</label><input id="b-qty" type="number" min="1" max="12" value="1"></div>
+            <div class="frow"><label>Price (฿ per ticket)</label><input id="b-price" type="number" min="0" placeholder="e.g. 4500"></div>
+          </div>
+          <div class="frow">
+            <label>Handover method</label>
+            <select id="b-method">
+              <option value="faceToFace">Face-to-face (meet up)</option>
+              <option value="shipping">Shipping / postal delivery</option>
+              <option value="either">Either works</option>
+            </select>
+          </div>
+          <div class="frow"><label>Note</label><textarea id="b-note" rows="3" placeholder="Any details fans should know"></textarea></div>
+          <div class="frow"><label>Contact (LINE / IG)</label><input id="b-contact" placeholder="@yourhandle" required></div>
+          <button type="submit" class="btn primary" style="width:100%;">Post to board</button>
+        </form>
+      </div>
+      <div>
+        <div class="board-filters" id="board-filters">
+          <button data-f="all" class="active">All</button>
+          <button data-f="sell">Selling</button>
+          <button data-f="buy">Buying</button>
+          <button data-f="trade">Trading</button>
+        </div>
+        <div class="board-filters secondary" id="board-filters-day">
+          <button data-fd="all" class="active">Both days</button>
+          <button data-fd="13">Day 1 · 13 Nov</button>
+          <button data-fd="14">Day 2 · 14 Nov</button>
+        </div>
+        <div class="board-filters secondary" id="board-filters-method">
+          <button data-fm="all" class="active">Any handover</button>
+          <button data-fm="faceToFace">Face-to-face</button>
+          <button data-fm="shipping">Shipping</button>
+        </div>
+        <div id="board-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAVEL BUDDY -->
+  <section class="panel" id="panel-buddy">
+    <div class="section-head">
+      <h2><span class="playbill-num">Finale</span>Find a Travel Buddy</h2>
+      <p>Match up with other fans heading to Union Hall — share a taxi, Grab, or car and split the cost.</p>
+    </div>
+    <div class="grid-2" style="align-items:start;">
+      <div class="card">
+        <h3>Post your trip</h3>
+        <form id="buddy-form">
+          <div class="frow-2">
+            <div class="frow"><label>Nickname</label><input id="t-name" placeholder="How should other fans call you?" required></div>
+            <div class="frow"><label>Trip type</label>
+              <select id="t-trip">
+                <option value="outbound">Outbound — heading to the venue</option>
+                <option value="return">Return — heading home after the show</option>
+              </select>
+            </div>
+          </div>
+          <div class="frow-2">
+            <div class="frow"><label>Origin</label><input id="t-from" placeholder="e.g. BTS Asok" required></div>
+            <div class="frow"><label>Destination</label><input id="t-to" placeholder="e.g. Union Hall"></div>
+          </div>
+          <div class="frow-2">
+            <div class="frow"><label>Mode</label>
+              <select id="t-mode"><option>Grab / Taxi</option><option>Private car</option><option>BTS + MRT</option><option>Van / minibus</option></select>
+            </div>
+            <div class="frow"><label>Show day</label>
+              <select id="t-day">
+                <option value="13">Day 1 · 13 Nov</option>
+                <option value="14">Day 2 · 14 Nov</option>
+              </select>
+            </div>
+          </div>
+          <div class="frow-2">
+            <div class="frow"><label>Time</label><input id="t-time" type="text" placeholder="~15:30"></div>
+            <div class="frow"><label>Spots open</label><input id="t-spots" type="number" min="1" max="8" placeholder="e.g. 2"></div>
+          </div>
+          <div class="frow"><label>Contact (LINE / IG)</label><input id="t-contact" placeholder="@yourhandle" required></div>
+          <button type="submit" class="btn primary" style="width:100%;">Post travel plan</button>
+        </form>
+      </div>
+      <div id="buddy-list"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Unofficial fan-made hub for NAMTAN FILM GLAMOROUS FANCON · Not affiliated with GMMTV or ThaiTicketMajor · Official tickets: <a href="https://www.thaiticketmajor.com/concert/namtan-film-glamorous-fancon.html" target="_blank" rel="noopener">thaiticketmajor.com</a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-backdrop hidden" id="ticket-modal">
+  <div class="modal-panel">
+    <button class="modal-close" id="ticket-modal-close" aria-label="Close">✕</button>
+    <div id="ticket-modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   OPTIONAL LIVE SYNC — Firebase (Firestore + Anonymous Auth)
+   -----------------------------------------------------------------------
+   Fill in FIREBASE_CONFIG below with your own free Firebase project's
+   config (Firebase console → Project settings → General → Your apps →
+   SDK setup and configuration → Config) to make the Exchange Board,
+   Travel Buddy board, and seat reservations sync live across every fan
+   who opens this page — post a ticket on one phone, it shows up on
+   everyone else's instantly.
+
+   Steps:
+   1. https://console.firebase.google.com → Add project (free, no card
+      needed) → skip Google Analytics if asked.
+   2. Build → Firestore Database → Create database → Start in
+      **production mode** → pick any region.
+   3. Build → Authentication → Get started → Sign-in method →
+      enable **Anonymous**.
+   4. Project settings (gear icon) → General → scroll to "Your apps" →
+      click the </> (web) icon → register an app (nickname anything) →
+      copy the firebaseConfig object shown → paste its values below.
+   5. Firestore → Rules tab → paste the ruleset from the comment further
+      down this file → Publish.
+   6. Redeploy this file. That's it — no other code changes needed.
+
+   Leave the placeholder values below untouched to run in local-only
+   preview mode: everything still works, but each browser keeps its own
+   copy and nothing is shared between fans.
+   ===================================================================== */
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyApWh37rNKtue09-6vGmcFJ22vkFJ6otaM",
+  authDomain: "namtanfilmfancon.firebaseapp.com",
+  projectId: "namtanfilmfancon",
+  storageBucket: "namtanfilmfancon.firebasestorage.app",
+  messagingSenderId: "369772341655",
+  appId: "1:369772341655:web:66517b213c91ee690f3cd2"
+};
+
+/* Paste this into Firestore → Rules once Anonymous Auth is enabled:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /board_listings/{id} {
+      allow read: if true;
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+    }
+    match /buddy_listings/{id} {
+      allow read: if true;
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+    }
+    match /reservations_day_13/{seatId} {
+      allow read: if true;
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+    }
+    match /reservations_day_14/{seatId} {
+      allow read: if true;
+      allow create: if request.auth != null && request.resource.data.ownerId == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+    }
+  }
+}
+
+Note: there is deliberately no "allow update" rule anywhere. For the
+reservation collections that's what makes seat-claiming safe: Firestore
+only treats a write as "create" when the document doesn't exist yet, so
+if two fans tap the same seat at the same instant, only the first
+create succeeds and the second is rejected automatically by the
+database — no extra code needed to prevent double-booking.
+*/
+
+(async function main(){
+  "use strict";
+
+  /* ---------------- Cloud bootstrap (Firebase), with local fallback ---------------- */
+  var cloud = null; // null = local-only preview mode
+
+  async function initCloud(){
+    if(!FIREBASE_CONFIG.apiKey || FIREBASE_CONFIG.apiKey === "YOUR_API_KEY") return null;
+    try{
+      var FB_VER = "10.12.2";
+      var appMod = await import('https://www.gstatic.com/firebasejs/' + FB_VER + '/firebase-app.js');
+      var fs = await import('https://www.gstatic.com/firebasejs/' + FB_VER + '/firebase-firestore.js');
+      var authMod = await import('https://www.gstatic.com/firebasejs/' + FB_VER + '/firebase-auth.js');
+      var app = appMod.initializeApp(FIREBASE_CONFIG);
+      var db = fs.getFirestore(app);
+      var auth = authMod.getAuth(app);
+      var cred = await authMod.signInAnonymously(auth);
+      return { db: db, uid: cred.user.uid, fs: fs };
+    }catch(e){
+      console.warn('Cloud sync unavailable, falling back to local-only preview mode:', e);
+      return null;
+    }
+  }
+
+  function localOwnerToken(){
+    try{
+      var t = localStorage.getItem('fancon_owner_token');
+      if(!t){ t = 'local-' + Math.random().toString(36).slice(2); localStorage.setItem('fancon_owner_token', t); }
+      return t;
+    }catch(e){ return 'local-anon'; }
+  }
+
+  cloud = await initCloud();
+  var myOwnerId = cloud ? cloud.uid : localOwnerToken();
+
+  var statusEl = document.getElementById('cloud-status');
+  if(statusEl){
+    statusEl.textContent = cloud
+      ? '🟢 Live sync active — the board and seat picks below update for every fan in real time'
+      : '🟠 Local preview mode — posts and seat picks save only in this browser. See the comment at the top of the page source to turn on live sync.';
+    statusEl.className = 'cloud-status' + (cloud ? ' on' : ' off');
+  }
+
+  /* ---------------- Tabs ---------------- */
+  var tabBtns = document.querySelectorAll('#tabs button');
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('section.panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  /* ---------------- Day toggle ---------------- */
+  var currentDay = '13';
+  var EVENT_DATES = {
+    '13': new Date("2026-11-13T17:00:00+07:00").getTime(),
+    '14': new Date("2026-11-14T17:00:00+07:00").getTime()
+  };
+  var dayToggleBtns = document.querySelectorAll('#day-toggle button');
+  dayToggleBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      dayToggleBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentDay = btn.dataset.day;
+      document.getElementById('countdown-cap').textContent = 'Counting down to Day ' + (currentDay === '13' ? '1' : '2');
+      document.getElementById('b-day').value = currentDay;
+      document.getElementById('t-day').value = currentDay;
+      document.getElementById('seatmap-day-label').textContent =
+        "Union Hall's official layout for Day " + (currentDay === '13' ? '1 (Sat 13 Nov)' : '2 (Sun 14 Nov)') + " — see exactly where a seat sits and reserve your own spot for tracking.";
+      tickCountdown();
+      if(cloud){ subscribeReservationsCloud(currentDay); } else { rebuildVenue(); }
+    });
+  });
+
+  /* ---------------- Countdown ---------------- */
+  function tickCountdown(){
+    var now = Date.now();
+    var diff = EVENT_DATES[currentDay] - now;
+    if(diff < 0){ diff = 0; }
+    var d = Math.floor(diff/86400000);
+    var h = Math.floor(diff%86400000/3600000);
+    var m = Math.floor(diff%3600000/60000);
+    var s = Math.floor(diff%60000/1000);
+    document.getElementById('cd-days').textContent = d;
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  /* ---------------- Toast ---------------- */
+  var toastEl = document.getElementById('toast');
+  var toastTimer;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2600);
+  }
+
+  /* ---------------- Pricing tiers ---------------- */
+  var TIER_INFO = {
+    t6900:{price:6900, label:'฿6,900'},
+    t5900:{price:5900, label:'฿5,900'},
+    t4500:{price:4500, label:'฿4,500'},
+    t4000:{price:4000, label:'฿4,000'},
+    t3500:{price:3500, label:'฿3,500'},
+    t3000:{price:3000, label:'฿3,000'},
+    t2500:{price:2500, label:'฿2,500'},
+    t2000:{price:2000, label:'฿2,000'},
+    t1500:{price:1500, label:'฿1,500'}
+  };
+
+  /* ---------------- Seat map generation ---------------- */
+  // deterministic PRNG per show day so each night's baseline "officially sold" pattern is stable
+  function mulberry32(a){
+    return function(){
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  function rowLetters(n, prefix){
+    var out = [];
+    for(var i=0;i<n;i++){ out.push(prefix + String.fromCharCode(65+i)); }
+    return out;
+  }
+  // Rectangular block: same seat count every row. numOffset: seat numbers run (numOffset+1)..(numOffset+len).
+  function rectRows(count, seatsPerRow, prefix, tier, numOffset){
+    return rowLetters(count, prefix).map(function(l){
+      return {label:l, len:seatsPerRow, tier:tier, numOffset:numOffset};
+    });
+  }
+  // Corner thrust block flush toward the AISLE side (numbers count up from numOffset+1 regardless of row length) —
+  // matches the official chart's right-hand corner blocks (e.g. seats 60,61,62… widening toward the back).
+  function trapRowsFlushStart(count, prefix, lens, tier, numOffset){
+    var labels = rowLetters(count, prefix);
+    return lens.map(function(len,i){ return {label:labels[i], len:len, tier:tier, numOffset:numOffset}; });
+  }
+  // Corner thrust block flush toward the STAGE side (numbers always END at numMax, so short front rows only
+  // show the highest seat numbers) — matches the official chart's left-hand corner blocks (e.g. rows ending at 11).
+  function trapRowsFlushEnd(count, prefix, lens, tier, numMax){
+    var labels = rowLetters(count, prefix);
+    return lens.map(function(len,i){ return {label:labels[i], len:len, tier:tier, numOffset:numMax-len}; });
+  }
+  // apply a different tier to the tail rows of an already-built row array (for split-price grandstand blocks)
+  function splitTail(rows, splitAt, tailTier){
+    for(var i=splitAt;i<rows.length;i++){ rows[i].tier = tailTier; }
+    return rows;
+  }
+
+  // row-length pattern shared by the two front corner thrust blocks (137-seat blocks on the official chart)
+  var CORNER_LENS = [3,4,5,6,7,8,9,10,11,11,11,11,11,11,11];
+  // row-length pattern shared by the two "186" notched blocks flanking the center thrust (from the official chart)
+  var NOTCH_LENS  = [5,5,5,7,9,10,11,12,12,12,12,12,12,12,12,12,12,12];
+  // Center thrust (Zone B3): the front 4 rows are split left/right around a center notch (the thrust point),
+  // the back 4 rows run fully contiguous — numbers throughout are 24-47, matching the official chart exactly.
+  var B3_ROWS = [
+    {label:'BK', tier:'t5900', split:true,  leftLen:4,  rightLen:4,  leftOffset:23, rightOffset:43},
+    {label:'BL', tier:'t5900', split:true,  leftLen:6,  rightLen:6,  leftOffset:23, rightOffset:41},
+    {label:'BM', tier:'t5900', split:true,  leftLen:8,  rightLen:8,  leftOffset:23, rightOffset:39},
+    {label:'BN', tier:'t5900', split:true,  leftLen:10, rightLen:10, leftOffset:23, rightOffset:37},
+    {label:'BO', tier:'t5900', split:false, len:24, numOffset:23},
+    {label:'BP', tier:'t5900', split:false, len:24, numOffset:23},
+    {label:'BQ', tier:'t5900', split:false, len:24, numOffset:23},
+    {label:'BR', tier:'t5900', split:false, len:24, numOffset:23}
+  ];
+
+  // Zone codes A1-A4, B1-B5, C1-C5, D1-D2, E1-E3 and seat numbers mirror the official seat chart,
+  // numbered left-to-right in continuous bands across each row of the theatre (with a gap over the
+  // center thrust where the aisle/arrow sits, just like the printed chart).
+  function buildZones(){
+    return [
+      {id:'A1', name:'Zone A1', rows: trapRowsFlushEnd(15,'A',CORNER_LENS,'t4500',11)},
+      {id:'A2', name:'Zone A2', rows: rectRows(15,20,'A','t6900',11)},
+      {id:'A3', name:'Zone A3', rows: rectRows(15,20,'A','t6900',39)},
+      {id:'A4', name:'Zone A4', rows: trapRowsFlushStart(15,'A',CORNER_LENS,'t4500',59)},
+
+      {id:'B1', name:'Zone B1', rows: rectRows(18,11,'B','t4000',0)},
+      {id:'B2', name:'Zone B2', rows: trapRowsFlushStart(18,'B',NOTCH_LENS,'t5900',11)},
+      {id:'B3', name:'Zone B3', rows: B3_ROWS},
+      {id:'B4', name:'Zone B4', rows: trapRowsFlushStart(18,'B',NOTCH_LENS,'t5900',47)},
+      {id:'B5', name:'Zone B5', rows: rectRows(18,11,'B','t4000',59)},
+
+      {id:'C1', name:'Zone C1', rows: rectRows(6,11,'C','t3500',0)},
+      {id:'C2', name:'Zone C2', rows: rectRows(6,12,'C','t4000',11)},
+      {id:'C3', name:'Zone C3', rows: rectRows(6,24,'C','t4500',23)},
+      {id:'C4', name:'Zone C4', rows: rectRows(6,12,'C','t4000',47)},
+      {id:'C5', name:'Zone C5', rows: rectRows(6,11,'C','t3500',59)},
+
+      {id:'D1', name:'Zone D1', rows: splitTail(rectRows(12,22,'D','t3000',0),6,'t2500')},
+      {id:'D2', name:'Zone D2', rows: splitTail(rectRows(12,22,'D','t3000',22),6,'t2500')},
+
+      {id:'E1', name:'Zone E1', rows: splitTail(rectRows(13,16,'E','t2000',0),6,'t1500')},
+      {id:'E2', name:'Zone E2', rows: splitTail(rectRows(13,20,'E','t2000',16),6,'t1500')},
+      {id:'E3', name:'Zone E3', rows: splitTail(rectRows(13,20,'E','t2000',36),6,'t1500')}
+    ];
+  }
+
+  var VENUE_ROWS = [
+    ['A1','A2','A3','A4'],
+    ['B1','B2','B3','B4','B5'],
+    ['C1','C2','C3','C4','C5'],
+    ['D1','D2'],
+    ['E1','E2','E3']
+  ];
+
+  var SOLD_RATE = 0.85; // baseline share of seats simulated as already officially sold
+  var seatState = {}; // seatId -> 'sold' | 'open', rebuilt per day
+  var STORAGE_RES_PREFIX = 'fancon_reservations_day_';
+  var cloudReservations = {}; // seatId -> {zone,price,tier,code,ownerId,ts} — current day, from Firestore
+  var unsubRes = null;
+
+  // ----- Reservation storage: cloud (shared, Firestore) or local (this browser only) -----
+  function loadReservationsLocal(day){
+    try{ return JSON.parse(localStorage.getItem(STORAGE_RES_PREFIX + day) || '{}'); }catch(e){ return {}; }
+  }
+  function saveReservationsLocal(day, obj){
+    try{ localStorage.setItem(STORAGE_RES_PREFIX + day, JSON.stringify(obj)); }catch(e){}
+  }
+
+  function subscribeReservationsCloud(day){
+    if(unsubRes){ unsubRes(); unsubRes = null; }
+    var coll = cloud.fs.collection(cloud.db, 'reservations_day_' + day);
+    unsubRes = cloud.fs.onSnapshot(coll, function(snap){
+      var map = {};
+      snap.forEach(function(d){ map[d.id] = d.data(); });
+      cloudReservations = map;
+      rebuildVenue();
+    }, function(err){ console.warn('reservation sync error', err); });
+  }
+
+  async function claimSeatCloud(day, seatId, data){
+    var payload = Object.assign({}, data, {ownerId: myOwnerId});
+    try{
+      await cloud.fs.setDoc(cloud.fs.doc(cloud.db, 'reservations_day_' + day, seatId), payload);
+      return true;
+    }catch(e){
+      return false; // most likely: someone already claimed this seat
+    }
+  }
+  async function releaseSeatCloud(day, seatId){
+    try{ await cloud.fs.deleteDoc(cloud.fs.doc(cloud.db, 'reservations_day_' + day, seatId)); }catch(e){}
+  }
+
+  // Returns a map of seatId -> item for reservations belonging to THIS visitor, for the given day.
+  function getMyReservations(day){
+    if(cloud){
+      var out = {};
+      Object.keys(cloudReservations).forEach(function(id){
+        if(cloudReservations[id].ownerId === myOwnerId) out[id] = cloudReservations[id];
+      });
+      return out;
+    }
+    return loadReservationsLocal(day);
+  }
+
+  function ticketCode(day, seatId){
+    var rand4 = Math.random().toString(36).slice(2,6).toUpperCase();
+    return 'NFGF-' + day + 'NOV-' + seatId.replace(/-/g,'') + '-' + rand4;
+  }
+
+  var DAY_INFO = {
+    '13': {label:'Day 1 · Saturday', date:'13 November 2026'},
+    '14': {label:'Day 2 · Sunday', date:'14 November 2026'}
+  };
+
+  function buildTicketHTML(seatId, item){
+    var parts = seatId.split('-'); // [zoneCode, rowLabel, seatNumber]
+    var zoneCode = parts[0], rowLabel = parts[1] || '–', seatNo = parts[2] || '–';
+    var d = DAY_INFO[currentDay];
+    return '<div class="ticket">' +
+      '<div class="ticket-top">' +
+        '<div class="ticket-main">' +
+          '<div class="sub">Namtan &amp; Film Glamorous Fancon</div>' +
+          '<h4>' + d.label + ' — ' + d.date + '</h4>' +
+          '<div class="ticket-row"><span>Venue</span><b>Union Hall, Union Mall</b></div>' +
+          '<div class="ticket-row"><span>Show time</span><b>17:00 (doors ~15:00)</b></div>' +
+          '<div class="ticket-row"><span>Zone</span><b>' + escapeHtml(zoneCode) + '</b></div>' +
+          '<div class="ticket-row"><span>Row</span><b>' + escapeHtml(rowLabel) + '</b></div>' +
+          '<div class="ticket-row"><span>Seat</span><b>' + escapeHtml(seatNo) + '</b></div>' +
+          '<div class="ticket-row"><span>Price</span><b>฿' + Number(item.price).toLocaleString() + '</b></div>' +
+          '<div class="ticket-code">' + (item.code || '—') + '</div>' +
+        '</div>' +
+        '<div class="ticket-stub">' +
+          '<div class="zone-small">ZONE</div>' +
+          '<div class="seat-big">' + escapeHtml(zoneCode) + '</div>' +
+          '<div class="zone-small" style="margin-top:8px;">ROW · SEAT</div>' +
+          '<div class="seat-big" style="font-size:1.1rem;">' + escapeHtml(rowLabel) + '-' + escapeHtml(seatNo) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ticket-note">PERSONAL PLANNER — NOT AN OFFICIAL TICKET · FOR COLLECTING &amp; TRACKING YOUR OWN SEAT ONLY</div>' +
+    '</div>';
+  }
+
+  function openTicketModal(seatIds, resStore){
+    var body = document.getElementById('ticket-modal-body');
+    body.innerHTML = '<h3 style="margin-bottom:14px;">Your Seat' + (seatIds.length > 1 ? 's' : '') + '</h3>' +
+      seatIds.map(function(id){ return buildTicketHTML(id, resStore[id]); }).join('');
+    document.getElementById('ticket-modal').classList.remove('hidden');
+  }
+  function closeTicketModal(){
+    document.getElementById('ticket-modal').classList.add('hidden');
+  }
+  document.getElementById('ticket-modal-close').addEventListener('click', closeTicketModal);
+  document.getElementById('ticket-modal').addEventListener('click', function(e){
+    if(e.target.id === 'ticket-modal') closeTicketModal();
+  });
+
+  var selected = {}; // seatId -> {zone, price, tier}
+
+  function rebuildVenue(){
+    selected = {};
+    var venue = document.getElementById('venue');
+    venue.innerHTML = '';
+    seatState = {};
+    var daySeed = currentDay === '13' ? 20261113 : 20261114;
+    var rand = mulberry32(daySeed);
+    var myMap = getMyReservations(currentDay);
+    var otherTaken = {};
+    if(cloud){
+      Object.keys(cloudReservations).forEach(function(id){
+        if(cloudReservations[id].ownerId !== myOwnerId) otherTaken[id] = true;
+      });
+    }
+    var zones = buildZones();
+
+    var frag = document.createDocumentFragment();
+    VENUE_ROWS.forEach(function(rowIds, idx){
+      var rowEl = document.createElement('div');
+      rowEl.className = 'venue-row';
+      rowIds.forEach(function(zid){
+        var zone = zones.filter(function(z){ return z.id===zid; })[0];
+        rowEl.appendChild(buildZoneDOM(zone, rand, myMap, otherTaken));
+        if(idx === 0 && zid === 'A2'){
+          // Catwalk stem runs down the gap between Zone A2 and A3, spanning the full height of the front row
+          var stem = document.createElement('div');
+          stem.className = 'catwalk-col';
+          rowEl.appendChild(stem);
+        }
+        if(idx === 3 && zid === 'D1'){
+          // Control / FOH booth sits inline between Zone D1 and D2
+          var ctrl = document.createElement('div');
+          ctrl.className = 'control-col';
+          ctrl.innerHTML = '<div class="control-box">CONTROL<br>/ FOH</div>';
+          rowEl.appendChild(ctrl);
+        }
+      });
+      frag.appendChild(rowEl);
+
+      if(idx === 0){
+        // Arrowhead-shaped secondary stage connects the catwalk stem down into Zone B3
+        var cw = document.createElement('div');
+        cw.className = 'catwalk-row';
+        cw.innerHTML = '<div class="secondary-stage"></div><div class="secondary-stage-lbl">SECONDARY STAGE</div>';
+        frag.appendChild(cw);
+      }
+    });
+    venue.appendChild(frag);
+    renderCart();
+    renderMyReservations();
+  }
+
+  function appendSeatButtons(rEl, zone, row, count, offset, rand, myMap, otherTaken){
+    for(var pos=1; pos<=count; pos++){
+      var seatNum = offset + pos;
+      var seatId = zone.id + '-' + row.label + '-' + seatNum;
+      var baseSold = rand() < SOLD_RATE; // always advance the PRNG so the baseline pattern never shifts
+      var reservedByMe = !!myMap[seatId];
+      var takenByOther = !reservedByMe && !!otherTaken[seatId];
+      var isSold = !reservedByMe && (takenByOther || baseSold);
+      seatState[seatId] = isSold ? 'sold' : 'open';
+      var price = TIER_INFO[row.tier].price;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'seat ' + row.tier + (isSold ? ' sold' : '') + (reservedByMe ? ' mine' : '');
+      btn.dataset.seat = seatId;
+      btn.dataset.zone = zone.name;
+      btn.dataset.price = price;
+      btn.dataset.tier = row.tier;
+      btn.title = zone.name + ' · Row ' + row.label.replace('-','') + ' Seat ' + seatNum + ' · ' + TIER_INFO[row.tier].label +
+        (reservedByMe ? ' · Reserved by you' : (takenByOther ? ' · Reserved by another fan' : (isSold ? ' · Sold' : ' · Open')));
+      rEl.appendChild(btn);
+    }
+  }
+
+  function buildZoneDOM(zone, rand, myMap, otherTaken){
+    var zEl = document.createElement('div');
+    zEl.className = 'zone';
+    var title = document.createElement('div');
+    title.className = 'zname';
+    title.innerHTML = zone.name;
+    zEl.appendChild(title);
+
+    zone.rows.forEach(function(row){
+      var rEl = document.createElement('div');
+      rEl.className = 'seatrow';
+      var rl = document.createElement('span');
+      rl.className = 'rowlabel';
+      rl.textContent = row.label.replace('-','');
+      rEl.appendChild(rl);
+
+      if(row.split){
+        appendSeatButtons(rEl, zone, row, row.leftLen, row.leftOffset, rand, myMap, otherTaken);
+        var missing = row.rightOffset - (row.leftOffset + row.leftLen);
+        var gapEl = document.createElement('span');
+        gapEl.className = 'seat-gap';
+        gapEl.style.width = Math.max(0, missing) * 12.5 + 'px';
+        rEl.appendChild(gapEl);
+        appendSeatButtons(rEl, zone, row, row.rightLen, row.rightOffset, rand, myMap, otherTaken);
+      } else {
+        appendSeatButtons(rEl, zone, row, row.len, row.numOffset, rand, myMap, otherTaken);
+      }
+      zEl.appendChild(rEl);
+    });
+    return zEl;
+  }
+
+  function buildLegend(){
+    var order = ['t6900','t5900','t4500','t4000','t3500','t3000','t2500','t2000','t1500'];
+    var html = '<span><i style="background:var(--seat-sold)"></i>Sold / reserved</span>' +
+      '<span><i style="background:var(--seat-mine)"></i>Reserved by you</span>';
+    order.forEach(function(t){
+      html += '<span><i class="' + t + '" style="background:var(--p' + TIER_INFO[t].price + ')"></i>' + TIER_INFO[t].label + '</span>';
+    });
+    document.getElementById('legend').innerHTML = html;
+  }
+  buildLegend();
+  if(cloud){ subscribeReservationsCloud(currentDay); } else { rebuildVenue(); }
+
+  /* ---------------- Selection / reservation ---------------- */
+  var MAX_SELECT = 6;
+
+  function renderCart(){
+    var listEl = document.getElementById('cart-list');
+    var totalEl = document.getElementById('cart-total');
+    var totalPriceEl = document.getElementById('cart-total-price');
+    var reserveBtn = document.getElementById('reserve-btn');
+    var ids = Object.keys(selected);
+    if(ids.length === 0){
+      listEl.innerHTML = '<div class="cart-empty">Click open seats on the map to select them (up to 6).</div>';
+      totalEl.style.display = 'none';
+      reserveBtn.style.display = 'none';
+      return;
+    }
+    var total = 0;
+    listEl.innerHTML = '';
+    ids.forEach(function(id){
+      var s = selected[id];
+      total += s.price;
+      var row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML = '<span>' + s.zone + ' · ' + id.split('-').slice(1).join('-') + '</span><span>฿' + s.price.toLocaleString() + ' <button data-remove="' + id + '">✕</button></span>';
+      listEl.appendChild(row);
+    });
+    totalEl.style.display = 'flex';
+    totalPriceEl.textContent = '฿' + total.toLocaleString();
+    reserveBtn.style.display = 'inline-flex';
+  }
+
+  function renderMyReservations(){
+    var myMap = getMyReservations(currentDay);
+    var ids = Object.keys(myMap);
+    var el = document.getElementById('my-reservations');
+    if(ids.length === 0){ el.innerHTML = ''; return; }
+    var html = '<h4 style="font-size:.85rem; color:var(--gold); letter-spacing:.05em;">Reserved by you — Day ' + (currentDay==='13'?'1':'2') + '</h4>';
+    ids.forEach(function(id){
+      var item = myMap[id];
+      html += '<div class="cart-item"><span>' + item.zone + ' · ' + id.split('-').slice(1).join('-') + '</span>' +
+        '<span>฿' + item.price.toLocaleString() + ' <button data-view="' + id + '" title="View ticket" style="color:var(--gold-bright);">🎫</button><button data-release="' + id + '">✕</button></span></div>';
+    });
+    el.innerHTML = html;
+  }
+
+  document.getElementById('venue').addEventListener('click', function(e){
+    var btn = e.target.closest('.seat');
+    if(!btn) return;
+    if(btn.classList.contains('mine')){ toast('Already reserved by you — remove it from "Your Selection" below to release it.'); return; }
+    if(btn.classList.contains('sold')) { toast('That seat is already taken — try the Exchange Board.'); return; }
+    var id = btn.dataset.seat;
+    if(selected[id]){
+      delete selected[id];
+      btn.classList.remove('selected');
+    } else {
+      if(Object.keys(selected).length >= MAX_SELECT){ toast('You can select up to ' + MAX_SELECT + ' seats at a time.'); return; }
+      selected[id] = {zone: btn.dataset.zone, price: Number(btn.dataset.price), tier: btn.dataset.tier};
+      btn.classList.add('selected');
+    }
+    renderCart();
+  });
+
+  document.getElementById('cart-list').addEventListener('click', function(e){
+    var id = e.target.dataset.remove;
+    if(!id) return;
+    delete selected[id];
+    var seatBtn = document.querySelector('.seat[data-seat="' + CSS.escape(id) + '"]');
+    if(seatBtn) seatBtn.classList.remove('selected');
+    renderCart();
+  });
+
+  document.getElementById('reserve-btn').addEventListener('click', async function(){
+    var newIds = Object.keys(selected);
+    var succeededData = {};
+    if(cloud){
+      for(var i=0;i<newIds.length;i++){
+        var id = newIds[i];
+        var data = Object.assign({}, selected[id]);
+        data.code = ticketCode(currentDay, id);
+        data.ts = Date.now();
+        var ok = await claimSeatCloud(currentDay, id, data);
+        if(ok){ succeededData[id] = data; }
+        else{ toast('Someone just reserved ' + id.split('-').slice(1).join('-') + ' — try another seat.'); }
+      }
+    } else {
+      var myRes = loadReservationsLocal(currentDay);
+      newIds.forEach(function(id){
+        var data = Object.assign({}, selected[id]);
+        data.code = ticketCode(currentDay, id);
+        myRes[id] = data;
+        succeededData[id] = data;
+      });
+      saveReservationsLocal(currentDay, myRes);
+      rebuildVenue();
+    }
+    selected = {};
+    renderCart();
+    var succeeded = Object.keys(succeededData);
+    if(succeeded.length){
+      toast('Reserved ' + succeeded.length + ' seat(s) for Day ' + (currentDay==='13'?'1':'2'));
+      openTicketModal(succeeded, succeededData);
+    }
+  });
+
+  document.getElementById('my-reservations').addEventListener('click', async function(e){
+    var viewId = e.target.dataset.view;
+    if(viewId){ openTicketModal([viewId], getMyReservations(currentDay)); return; }
+    var id = e.target.dataset.release;
+    if(!id) return;
+    if(cloud){
+      await releaseSeatCloud(currentDay, id);
+    } else {
+      var myRes = loadReservationsLocal(currentDay);
+      delete myRes[id];
+      saveReservationsLocal(currentDay, myRes);
+      rebuildVenue();
+    }
+    renderMyReservations();
+    toast('Reservation released');
+  });
+
+  /* ---------------- Tier cards ---------------- */
+  var TIERS = [
+    {tier:'t6900', name:'Zone A2 / A3 — VIP Center', tag:'Best view', perks:[
+      'Front-center blocks, closest full-facing view of the stage',
+      'Priority entry lane',
+      'Hi-touch fan greeting',
+      'Individual photo-op moment'
+    ]},
+    {tier:'t5900', name:'Zone B2 / B3 / B4 — Thrust', tag:'Great view', perks:[
+      'Wraps the center thrust stage on three sides',
+      'Hi-touch fan greeting',
+      'Group photo-op moment'
+    ]},
+    {tier:'t4500', name:'Zone A1 / A4 / C3', tag:'', perks:[
+      'Front corner thrust seats or center mid-hall block',
+      'Group photo-op moment',
+      'Access to fan games segment'
+    ]},
+    {tier:'t4000', name:'Zone B1 / B5 / C2 / C4', tag:'', perks:[
+      'Elevated side blocks with clear sightlines',
+      'Access to fan games segment'
+    ]},
+    {tier:'t3500', name:'Zone C1 / C5', tag:'', perks:[
+      'Mid-hall outer seating',
+      'Full show experience'
+    ]},
+    {tier:'t3000', name:'Zone D1 / D2 — front rows', tag:'', perks:[
+      'Rear-hall block, closer rows',
+      'Full show experience'
+    ]},
+    {tier:'t2500', name:'Zone D1 / D2 — back rows', tag:'', perks:[
+      'Rear-hall block, further rows',
+      'Full show experience'
+    ]},
+    {tier:'t2000', name:'Zone E1 / E2 / E3 — grandstand front', tag:'Budget friendly', perks:[
+      'Elevated grandstand, closer tier',
+      'Great for first-time fancon goers'
+    ]},
+    {tier:'t1500', name:'Zone E1 / E2 / E3 — grandstand back', tag:'Budget friendly', perks:[
+      'Elevated grandstand, back tier',
+      'Full show experience & clear sightline from height'
+    ]}
+  ];
+  var tierWrap = document.getElementById('tier-cards');
+  TIERS.forEach(function(t){
+    var el = document.createElement('div');
+    el.className = 'tier-card';
+    el.innerHTML =
+      '<div class="tier-head"><span class="swatch" style="background:var(--p' + TIER_INFO[t.tier].price + ')"></span><div>' +
+      '<h4 style="margin-bottom:2px; color:var(--cream); font-family:\'Karla\',sans-serif; font-size:.98rem;">' + t.name + (t.tag ? '<span class="pill" style="margin-left:8px;">' + t.tag + '</span>' : '') + '</h4>' +
+      '<div class="price">' + TIER_INFO[t.tier].label + '<small> baht</small></div></div></div>' +
+      '<ul>' + t.perks.map(function(p){ return '<li>' + p + '</li>'; }).join('') + '</ul>';
+    tierWrap.appendChild(el);
+  });
+
+  /* ---------------- Exchange board ---------------- */
+  var STORAGE_BOARD = 'fancon_board_v2';
+  var boardItems = [];
+  var boardFilter = 'all';
+  var boardFilterDay = 'all';
+  var boardFilterMethod = 'all';
+  var METHOD_LABEL = {faceToFace:'Face-to-face', shipping:'Shipping', either:'Either method'};
+
+  function loadBoardLocal(){ try{ return JSON.parse(localStorage.getItem(STORAGE_BOARD) || '[]'); }catch(e){ return []; } }
+  function saveBoardLocal(list){ try{ localStorage.setItem(STORAGE_BOARD, JSON.stringify(list)); }catch(e){} }
+  function refreshBoardLocal(){ boardItems = loadBoardLocal().sort(function(a,b){ return b.ts - a.ts; }); renderBoard(); }
+
+  function subscribeBoardCloud(){
+    var q = cloud.fs.query(cloud.fs.collection(cloud.db,'board_listings'), cloud.fs.orderBy('ts','desc'));
+    cloud.fs.onSnapshot(q, function(snap){
+      boardItems = snap.docs.map(function(d){ return Object.assign({id:d.id}, d.data()); });
+      renderBoard();
+    }, function(err){ console.warn('board sync error', err); });
+  }
+
+  async function addBoardItem(obj){
+    obj.ts = Date.now();
+    if(cloud){
+      obj.ownerId = myOwnerId;
+      var ref = cloud.fs.doc(cloud.fs.collection(cloud.db,'board_listings'));
+      await cloud.fs.setDoc(ref, obj);
+    } else {
+      obj.id = 'b' + Date.now();
+      obj.ownerId = myOwnerId;
+      var list = loadBoardLocal();
+      list.push(obj);
+      saveBoardLocal(list);
+      refreshBoardLocal();
+    }
+  }
+  async function deleteBoardItem(id){
+    if(cloud){
+      await cloud.fs.deleteDoc(cloud.fs.doc(cloud.db,'board_listings', id));
+    } else {
+      saveBoardLocal(loadBoardLocal().filter(function(l){ return l.id !== id; }));
+      refreshBoardLocal();
+    }
+  }
+
+  function renderBoard(){
+    var filtered = boardItems.filter(function(l){
+      if(boardFilter !== 'all' && l.type !== boardFilter) return false;
+      if(boardFilterDay !== 'all' && String(l.day) !== boardFilterDay) return false;
+      if(boardFilterMethod !== 'all' && l.method !== boardFilterMethod) return false;
+      return true;
+    });
+    var el = document.getElementById('board-list');
+    if(filtered.length === 0){
+      el.innerHTML = '<div class="empty-state"><div class="big">🎫</div>No listings match yet — try another filter, or be the first to post!</div>';
+      return;
+    }
+    el.innerHTML = filtered.map(function(l){
+      var tagLabel = l.type === 'sell' ? 'SELLING' : l.type === 'buy' ? 'BUYING' : 'TRADING';
+      var dayLabel = l.day === '13' || l.day === 13 ? 'Day 1 · 13 Nov' : 'Day 2 · 14 Nov';
+      var titleBits = ['Zone ' + escapeHtml(l.zone)];
+      if(l.row) titleBits.push('Row ' + escapeHtml(l.row));
+      if(l.seatno) titleBits.push('Seat ' + escapeHtml(l.seatno));
+      var canRemove = l.ownerId === myOwnerId;
+      return '<div class="listing">' +
+        '<div class="listing-top"><h4>' + titleBits.join(' · ') + '</h4>' +
+          '<div class="badges"><span class="tag ' + l.type + '">' + tagLabel + '</span><span class="tag day">' + dayLabel + '</span></div></div>' +
+        '<div class="meta" style="margin-top:0;"><span><b>Qty:</b> ' + (l.qty || 1) + '</span>' + (l.price ? '<span><b>Price:</b> ฿' + Number(l.price).toLocaleString() + ' / ticket</span>' : '') + '</div>' +
+        (l.note ? '<p>' + escapeHtml(l.note) + '</p>' : '') +
+        '<div class="meta"><span><b>Contact:</b> ' + escapeHtml(l.contact) + '</span><span class="tag method">' + (METHOD_LABEL[l.method] || 'Either method') + '</span><span>' + timeAgo(l.ts) + '</span></div>' +
+        '<div class="row-end"><span></span>' + (canRemove ? '<button class="btn small danger" data-del-board="' + l.id + '">Remove</button>' : '<span style="font-size:.72rem; color:var(--cream-dim);">Posted by another fan</span>') + '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  document.getElementById('board-filters').addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    document.querySelectorAll('#board-filters button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    boardFilter = btn.dataset.f;
+    renderBoard();
+  });
+  document.getElementById('board-filters-day').addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    document.querySelectorAll('#board-filters-day button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    boardFilterDay = btn.dataset.fd;
+    renderBoard();
+  });
+  document.getElementById('board-filters-method').addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    document.querySelectorAll('#board-filters-method button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    boardFilterMethod = btn.dataset.fm;
+    renderBoard();
+  });
+
+  document.getElementById('board-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    await addBoardItem({
+      type: document.getElementById('b-type').value,
+      day: document.getElementById('b-day').value,
+      zone: document.getElementById('b-zone').value.trim(),
+      row: document.getElementById('b-row').value.trim(),
+      seatno: document.getElementById('b-seatno').value.trim(),
+      qty: document.getElementById('b-qty').value || 1,
+      price: document.getElementById('b-price').value,
+      method: document.getElementById('b-method').value,
+      note: document.getElementById('b-note').value.trim(),
+      contact: document.getElementById('b-contact').value.trim()
+    });
+    e.target.reset();
+    document.getElementById('b-day').value = currentDay;
+    toast('Posted to the Exchange Board');
+  });
+
+  document.getElementById('board-list').addEventListener('click', function(e){
+    var id = e.target.dataset.delBoard;
+    if(!id) return;
+    deleteBoardItem(id);
+  });
+
+  document.getElementById('b-day').value = currentDay;
+  if(cloud){ subscribeBoardCloud(); } else { refreshBoardLocal(); }
+
+  /* ---------------- Travel buddy ---------------- */
+  var STORAGE_BUDDY = 'fancon_buddy_v2';
+  var buddyItems = [];
+
+  function loadBuddyLocal(){ try{ return JSON.parse(localStorage.getItem(STORAGE_BUDDY) || '[]'); }catch(e){ return []; } }
+  function saveBuddyLocal(list){ try{ localStorage.setItem(STORAGE_BUDDY, JSON.stringify(list)); }catch(e){} }
+  function refreshBuddyLocal(){ buddyItems = loadBuddyLocal().sort(function(a,b){ return b.ts - a.ts; }); renderBuddy(); }
+
+  function subscribeBuddyCloud(){
+    var q = cloud.fs.query(cloud.fs.collection(cloud.db,'buddy_listings'), cloud.fs.orderBy('ts','desc'));
+    cloud.fs.onSnapshot(q, function(snap){
+      buddyItems = snap.docs.map(function(d){ return Object.assign({id:d.id}, d.data()); });
+      renderBuddy();
+    }, function(err){ console.warn('buddy sync error', err); });
+  }
+
+  async function addBuddyItem(obj){
+    obj.ts = Date.now();
+    if(cloud){
+      obj.ownerId = myOwnerId;
+      var ref = cloud.fs.doc(cloud.fs.collection(cloud.db,'buddy_listings'));
+      await cloud.fs.setDoc(ref, obj);
+    } else {
+      obj.id = 't' + Date.now();
+      obj.ownerId = myOwnerId;
+      var list = loadBuddyLocal();
+      list.push(obj);
+      saveBuddyLocal(list);
+      refreshBuddyLocal();
+    }
+  }
+  async function deleteBuddyItem(id){
+    if(cloud){
+      await cloud.fs.deleteDoc(cloud.fs.doc(cloud.db,'buddy_listings', id));
+    } else {
+      saveBuddyLocal(loadBuddyLocal().filter(function(t){ return t.id !== id; }));
+      refreshBuddyLocal();
+    }
+  }
+
+  function renderBuddy(){
+    var list = buddyItems;
+    var el = document.getElementById('buddy-list');
+    if(list.length === 0){
+      el.innerHTML = '<div class="card"><div class="empty-state"><div class="big">🚕</div>No travel plans posted yet.</div></div>';
+      return;
+    }
+    el.innerHTML = list.map(function(t){
+      var dayLabel = t.day === '13' || t.day === 13 ? 'Day 1 · 13 Nov' : 'Day 2 · 14 Nov';
+      var tripLabel = t.trip === 'return' ? 'RETURN' : 'OUTBOUND';
+      var route = escapeHtml(t.from || '?') + (t.to ? ' → ' + escapeHtml(t.to) : '');
+      var canRemove = t.ownerId === myOwnerId;
+      return '<div class="listing">' +
+        '<div class="listing-top"><h4>' + escapeHtml(t.name) + '</h4><div class="badges"><span class="tag trade">' + tripLabel + '</span><span class="tag trade">' + escapeHtml(t.mode) + '</span><span class="tag day">' + dayLabel + '</span></div></div>' +
+        '<p><b style="color:var(--cream)">' + route + '</b>' + (t.time ? ' · ' + escapeHtml(t.time) : '') + (t.spots ? ' · ' + escapeHtml(String(t.spots)) + ' spot(s) open' : '') + '</p>' +
+        '<div class="meta"><span><b>Contact:</b> ' + escapeHtml(t.contact) + '</span><span>' + timeAgo(t.ts) + '</span></div>' +
+        '<div class="row-end"><span></span>' + (canRemove ? '<button class="btn small danger" data-del-buddy="' + t.id + '">Remove</button>' : '<span style="font-size:.72rem; color:var(--cream-dim);">Posted by another fan</span>') + '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  document.getElementById('buddy-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    await addBuddyItem({
+      name: document.getElementById('t-name').value.trim(),
+      trip: document.getElementById('t-trip').value,
+      from: document.getElementById('t-from').value.trim(),
+      to: document.getElementById('t-to').value.trim(),
+      mode: document.getElementById('t-mode').value,
+      day: document.getElementById('t-day').value,
+      time: document.getElementById('t-time').value.trim(),
+      spots: document.getElementById('t-spots').value,
+      contact: document.getElementById('t-contact').value.trim()
+    });
+    e.target.reset();
+    document.getElementById('t-day').value = currentDay;
+    toast('Travel plan posted');
+  });
+
+  document.getElementById('buddy-list').addEventListener('click', function(e){
+    var id = e.target.dataset.delBuddy;
+    if(!id) return;
+    deleteBuddyItem(id);
+  });
+
+  document.getElementById('t-trip').addEventListener('change', function(){
+    var from = document.getElementById('t-from');
+    var to = document.getElementById('t-to');
+    if(this.value === 'return'){
+      from.placeholder = 'e.g. Union Hall, Union Mall';
+      to.placeholder = 'e.g. your home / hotel';
+    } else {
+      from.placeholder = 'e.g. BTS Asok';
+      to.placeholder = 'e.g. Union Hall, Union Mall';
+    }
+  });
+
+  document.getElementById('t-day').value = currentDay;
+  if(cloud){ subscribeBuddyCloud(); } else { refreshBuddyLocal(); }
+
+  /* ---------------- utils ---------------- */
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+  function timeAgo(ts){
+    var s = Math.floor((Date.now()-ts)/1000);
+    if(s < 60) return 'just now';
+    if(s < 3600) return Math.floor(s/60) + 'm ago';
+    if(s < 86400) return Math.floor(s/3600) + 'h ago';
+    return Math.floor(s/86400) + 'd ago';
+  }
+
+})();
+</script>
+</body>
+</html>
