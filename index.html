@@ -575,7 +575,7 @@
           <li><span class="time">11:00</span><span class="dot"></span><div class="txt"><b>Fan booths open</b><span>Vendor &amp; merch booths open at the venue</span></div></li>
           <li><span class="time">11:00</span><span class="dot"></span><div class="txt"><b>Benefit registration opens</b><span>Register to claim your Hi-touch &amp; Group Photo benefit slot (11:00–13:00)</span></div></li>
           <li><span class="time">12:00</span><span class="dot"></span><div class="txt"><b>Doors open — Benefit holders</b><span>Entry for fans registered for the Hi-touch Session &amp; Group Photo</span></div></li>
-          <li><span class="time">13:00</span><span class="dot"></span><div class="txt"><b>Fan Benefits: Hi-touch Session &amp; Group Photo</b><span>Benefit holders meet Namtan &amp; Film</span></div></li>
+          <li><span class="time">13:00</span><span class="dot"></span><div class="txt"><b>Fan Benefits: Hi - Session &amp; Group Photo</b><span>Benefit holders meet Namtan &amp; Film</span></div></li>
           <li><span class="time">16:00</span><span class="dot"></span><div class="txt"><b>Doors open</b><span>General entry &amp; seating for all ticket holders</span></div></li>
           <li><span class="time">17:00</span><span class="dot"></span><div class="txt"><b>FANCON begins</b><span>Show starts — same schedule both nights, 13 &amp; 14 November</span></div></li>
         </ul>
@@ -1166,7 +1166,7 @@ database — no extra code needed to prevent double-booking.
     ['E1','E2','E3']
   ];
 
-  var SOLD_RATE = 0.85; // baseline share of seats simulated as already officially sold
+  var SOLD_RATE = 0; // baseline share of seats simulated as already officially sold
   var seatState = {}; // seatId -> 'sold' | 'open', rebuilt per day
   var STORAGE_RES_PREFIX = 'fancon_reservations_day_';
   var cloudReservations = {}; // seatId -> {zone,price,tier,code,ownerId,ts} — current day, from Firestore
