@@ -523,8 +523,8 @@
       <div>📍 <strong>Union Hall, Union Mall</strong>, Bangkok</div>
     </div>
     <div class="day-toggle" id="day-toggle">
-      <button data-day="13" class="active">DAY 1 · SAT 13 NOV</button>
-      <button data-day="14">DAY 2 · SUN 14 NOV</button>
+      <button data-day="13" class="active">DAY 1 · FRI 13 NOV</button>
+      <button data-day="14">DAY 2 · SAT 14 NOV</button>
     </div>
     <div class="countdown-cap" id="countdown-cap">Counting down to Day 1</div>
     <div class="countdown" id="countdown">
@@ -573,8 +573,8 @@
         <h3>Estimated Day Schedule</h3>
         <ul class="timeline">
           <li><span class="time">11:00</span><span class="dot"></span><div class="txt"><b>Fan booths open</b><span>Vendor &amp; merch booths open at the venue</span></div></li>
-          <li><span class="time">11:00</span><span class="dot"></span><div class="txt"><b>Benefit registration opens</b><span>Register to claim your Hi-touch &amp; Group Photo benefit slot (11:00–13:00)</span></div></li>
-          <li><span class="time">12:00</span><span class="dot"></span><div class="txt"><b>Doors open — Benefit holders</b><span>Entry for fans registered for the Hi-touch Session &amp; Group Photo</span></div></li>
+          <li><span class="time">11:00</span><span class="dot"></span><div class="txt"><b>Benefit registration opens</b><span>Register to claim your Hi-Session &amp; Group Photo benefit slot (11:00–13:00)</span></div></li>
+          <li><span class="time">12:00</span><span class="dot"></span><div class="txt"><b>Doors open — Benefit holders</b><span>Entry for fans registered for the Hi-Session &amp; Group Photo</span></div></li>
           <li><span class="time">13:00</span><span class="dot"></span><div class="txt"><b>Fan Benefits: Hi - Session &amp; Group Photo</b><span>Benefit holders meet Namtan &amp; Film</span></div></li>
           <li><span class="time">16:00</span><span class="dot"></span><div class="txt"><b>Doors open</b><span>General entry &amp; seating for all ticket holders</span></div></li>
           <li><span class="time">17:00</span><span class="dot"></span><div class="txt"><b>FANCON begins</b><span>Show starts — same schedule both nights, 13 &amp; 14 November</span></div></li>
@@ -769,8 +769,8 @@
             <div class="frow">
               <label>Show day</label>
               <select id="b-day">
-                <option value="13">Day 1 · Sat 13 Nov</option>
-                <option value="14">Day 2 · Sun 14 Nov</option>
+                <option value="13">Day 1 · Fri 13 Nov</option>
+                <option value="14">Day 2 · Sat 14 Nov</option>
               </select>
             </div>
           </div>
@@ -792,7 +792,7 @@
             </select>
           </div>
           <div class="frow"><label>Note</label><textarea id="b-note" rows="3" placeholder="Any details fans should know"></textarea></div>
-          <div class="frow"><label>Contact (LINE / IG)</label><input id="b-contact" placeholder="@yourhandle" required></div>
+          <div class="frow"><label>Contact (LINE / IG / X)</label><input id="b-contact" placeholder="@yourhandle" required></div>
           <button type="submit" class="btn primary" style="width:100%;">Post to board</button>
         </form>
       </div>
@@ -856,7 +856,7 @@
             <div class="frow"><label>Time</label><input id="t-time" type="text" placeholder="~15:30"></div>
             <div class="frow"><label>Spots open</label><input id="t-spots" type="number" min="1" max="8" placeholder="e.g. 2"></div>
           </div>
-          <div class="frow"><label>Contact (LINE / IG)</label><input id="t-contact" placeholder="@yourhandle" required></div>
+          <div class="frow"><label>Contact (LINE / IG / X)</label><input id="t-contact" placeholder="@yourhandle" required></div>
           <button type="submit" class="btn primary" style="width:100%;">Post travel plan</button>
         </form>
       </div>
@@ -1024,7 +1024,7 @@ database — no extra code needed to prevent double-booking.
       document.getElementById('b-day').value = currentDay;
       document.getElementById('t-day').value = currentDay;
       document.getElementById('seatmap-day-label').textContent =
-        "Union Hall's official layout for Day " + (currentDay === '13' ? '1 (Sat 13 Nov)' : '2 (Sun 14 Nov)') + " — see exactly where a seat sits and reserve your own spot for tracking.";
+        "Union Hall's official layout for Day " + (currentDay === '13' ? '1 (Fri 13 Nov)' : '2 (Sat 14 Nov)') + " — see exactly where a seat sits and reserve your own spot for tracking.";
       tickCountdown();
       if(cloud){ subscribeReservationsCloud(currentDay); } else { rebuildVenue(); }
     });
@@ -1222,8 +1222,8 @@ database — no extra code needed to prevent double-booking.
   }
 
   var DAY_INFO = {
-    '13': {label:'Day 1 · Saturday', date:'13 November 2026'},
-    '14': {label:'Day 2 · Sunday', date:'14 November 2026'}
+    '13': {label:'Day 1 · Friday', date:'13 November 2026'},
+    '14': {label:'Day 2 · Saturday', date:'14 November 2026'}
   };
 
   function buildTicketHTML(seatId, item){
